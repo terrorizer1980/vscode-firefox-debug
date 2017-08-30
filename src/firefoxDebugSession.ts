@@ -78,7 +78,16 @@ export class FirefoxDebugSession {
 			rootActor.fetchTabs();
 		});
 
-		rootActor.onInit(async () => {
+		rootActor.onInit(async (response) => {
+
+			if (response.applicationType === 'synode') {
+
+				if (this.addonManager) {
+					await this.addonManager.fetchAddonsAndAttach(rootActor);
+				}
+
+				return;
+			}
 
 			let actors = await rootActor.fetchTabs();
 

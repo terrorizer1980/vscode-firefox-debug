@@ -120,7 +120,7 @@ export class AddonManager {
 		await this.buildAddonDir(this.config.path, this.addonBuildPath);
 	}
 
-	private async fetchAddonsAndAttach(rootActor: RootActorProxy): Promise<void> {
+	public async fetchAddonsAndAttach(rootActor: RootActorProxy): Promise<void> {
 
 		if (this.addonAttached) return;
 
