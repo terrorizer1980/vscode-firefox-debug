@@ -70,7 +70,7 @@ export class PathMapper {
 
 					let path = this.removeQueryString(to + url.substr(from.length));
 					if (isWindowsPlatform) {
-						path = path.replace(/\//g, '\\');
+						path = this.sanitizeWindowsPath(path);
 					}
 
 					log.debug(`Converted url ${url} to path ${path}`);
@@ -84,7 +84,7 @@ export class PathMapper {
 
 					let path = this.removeQueryString(to + match[1]);
 					if (isWindowsPlatform) {
-						path = path.replace(/\//g, '\\');
+						path = this.sanitizeWindowsPath(path);
 					}
 
 					log.debug(`Converted url ${url} to path ${path}`);
@@ -105,5 +105,10 @@ export class PathMapper {
 		} else {
 			return path;
 		}
+	}
+
+	private sanitizeWindowsPath(path: string): string {
+		path = path.replace(/\//g, '\\');
+		return path[0].toLowerCase() + path.substr(1);
 	}
 }
